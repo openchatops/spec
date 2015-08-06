@@ -37,11 +37,17 @@ A handler is a plugin that provides arbitrary runtime functionality for the chat
 
 ## Communication protocol
 
-OpenChatOps bots and their plugins communicate with each other over the network using an RPC protocol. The protocol has not yet been decided upon, but is likely to be Google's gRPC with Protocol Buffers, Cap'n Proto, or Apache Thrift. These systems all provide a schema-based, strongly-typed serialization format and wire protocol for transmitting data over the network. The schemas are authored in a programming language-agnostic interface definition language (IDL) and a compiler is used to generate source code for a number of different programming languages.
+OpenChatOps bots and their plugins communicate schema-based, strongly-typed data with each other over the network using Google's [gRPC](http://www.grpc.io/). While gRPC provides the RPC protocol, it leans on Google's [Protocol Buffers](https://developers.google.com/protocol-buffers/) to define the data to be transmitted over the RPC protocol and the interfaces of the services that expose RPC API endpoints. Protocol Buffers uses a programming language-agnostic interface description language (IDL) for schema definition. gRPC's RPC system is built on top of [HTTP/2](https://http2.github.io/), which uses a binary format for efficient network transfer.
+
+In short:
+
+* The OpenChatOps API's services (endpoints) and messages (data types) are defined in the Protocol Buffers IDL.
+* When authoring an OCO-compliant chat bot for a particular language, supporting code for that language is compiled from the Protocol Buffers IDL files.
+* This generated code includes of all the data types, a scaffold for implementing the main RPC server's API, and client code to make requests to the API in a way that feels natural for that language and hides the details of the protocol.
 
 ## API
 
-The API will be defined in separate files using the IDL for the RPC system. An explanation of all the types of interfaces will follow in this section.
+The OpenChatOps API is expressed in the Protocol Buffers interface description language in the `proto` directory. All services, service methods, messages, and message fields are documented with inline comments. A higher level overview of the API will follow in this section.
 
 ## License
 

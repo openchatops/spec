@@ -1,0 +1,41 @@
+syntax = "proto3";
+
+package oco;
+
+// An event received over the Listen stream.
+message Event {
+  oneof type {
+    MatchedMessage matched_message = 1; // An incoming message that matched a chat route.
+  }
+}
+
+// An incoming message that matched a chat route.
+message MatchedMessage {
+  Message message = 1; // The message.
+  string pattern = 2; // The regular expression that matched.
+}
+
+// A chat message.
+message Message {
+  string body = 1; // The body of the message.
+  Source source = 2; // The source of an incoming message or target of an outgoing message.
+}
+
+// A chat room.
+message Room {
+  string id = 1; // A unique ID for the room.
+  string name = 2; // A human-readable name for the room.
+}
+
+// The user/room that sent an incoming message or the user/room to send an outgoing messsage to.
+message Source {
+  User user = 1; // The user.
+  Room room = 2; // The room.
+}
+
+// A user of the chat service.
+message User {
+  string id = 1; // A unique ID for the user.
+  string name = 2; // A human-readable name for the user.
+  string mention_name = 3; // A short name that alerts the user when it appears in a message.
+}

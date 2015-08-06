@@ -1,0 +1,47 @@
+syntax = "proto3";
+
+import "core.proto";
+
+package oco;
+
+// The RPC service that controls the chat bot.
+service Robot {
+  // Instructs the bot to join a room.
+  rpc Join (JoinRequest) returns (JoinResponse);
+  // Listens to a stream of incoming events.
+  rpc Listen (ListenRequest) returns (stream Event);
+  // Instructs the bot to part from a room.
+  rpc Part (PartRequest) returns (PartResponse);
+  // Sends one or more messages to a user or room.
+  rpc SendMessages (SendMessagesRequest) returns (SendMessagesResponse);
+}
+
+// Request message for the Join method.
+message JoinRequest {
+  Room room = 1; // The room to be joined.
+}
+
+// Response message for the Join method.
+message JoinResponse {}
+
+// Request message for the Listen method.
+message ListenRequest {
+  string plugin_id = 1; // Identifies the listening plugin.
+}
+
+// Request message for the Part method.
+message PartRequest {
+  Room room = 1; // The room to be parted.
+}
+
+// Response message for the Part method.
+message PartResponse {}
+
+// Request message for the SendMessages method.
+message SendMessagesRequest {
+  bool WithMention = 1; // Whether or not to prepend the user's mention name to the messages.
+  repeated Message messages = 2; // The messages to send.
+}
+
+// Response message for the SendMessages method.
+message SendMessagesResponse {}
