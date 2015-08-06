@@ -43,7 +43,7 @@ In short:
 
 * The OpenChatOps API's services (endpoints) and messages (data types) are defined in the Protocol Buffers IDL.
 * When authoring an OCO-compliant chat bot for a particular language, supporting code for that language is compiled from the Protocol Buffers IDL files.
-* This generated code includes of all the data types, a scaffold for implementing the main RPC server's API, and client code to make requests to the API in a way that feels natural for that language and hides the details of the protocol.
+* This generated code includes all of the data types, scaffolding for implementing the main RPC server's API, and client code to make requests to the API in a way that feels natural for that language and hides the details of the protocol.
 
 ## API
 
