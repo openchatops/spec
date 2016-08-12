@@ -73,6 +73,20 @@ The OpenChatOps API is expressed in the Protocol Buffers interface description l
 All services, service methods, messages, and message fields are documented with inline comments.
 A higher level overview of the API will follow in this section.
 
+## Reference implementation
+
+[Rustin](https://github.com/openchatops/rustin) is a prototype for OpenChatOps being developed as a reference implementation.
+
+## Community
+
+To participate in the development of OpenChatOps, please feel free to join our chat.
+It is available through:
+
+* [#openchatops:matrix.org](https://vector.im/beta/#/room/#openchatops:matrix.org) on the Matrix network
+* [#openchatops](https://webchat.freenode.net/?channels=openchatops) on the Freenode IRC network
+
+Issues and pull requests to any OpenChatOps repository on GitHub are also welcome.
+
 ## License
 
 The OpenChatOps specification is available under the [MIT License](http://opensource.org/licenses/MIT). See the attached LICENSE file.
