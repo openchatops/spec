@@ -36,7 +36,9 @@ The ability to orchestrate and deploy an architecture like this is significantly
 The OpenChatOps architecture is made up of multiple programs that run as independent processes:
 
 1. One chat bot
-3. Zero or more callbacks programs
+2. One core data storage backend
+3. Zero or more specific data stores
+4. Zero or more callbacks programs
 
 ### Chat bot
 
@@ -45,6 +47,20 @@ It implements APIs for receiving incoming messages, sending outgoing messages, m
 The chat bot runs an RPC server that exposes its APIs to other programs over a network.
 Chat bots may be specific to one chat service or may support multiple services.
 If multiple services are supported, the user is able to select which they want to use via configuration.
+
+### Core data storage
+
+A chat bot requires a data store for persisting data such as user accounts, chat room information, and authorization rules.
+The interface to this core data storage is a very simple key-value store.
+A chat bot may require specific database software or may support multiple database.
+If multiple databases are supported, the user is able to select which they want to use via configuration.
+
+### Specific data storage
+
+Certain callback programs may require the use of particular databases.
+For example, a callback program may require relational database capabilities via a database like [PostgreSQL](https://www.postgresql.org/), or unique features provided by [Redis](http://redis.io/) like sorted sets.
+For these situations, the necessary databases are declared by callback programs as required dependencies, and the callback programs can only run with a bot that provides an API to use those specific databases.
+The details of these APIs are not yet designed.
 
 ### Callback program
 
@@ -60,6 +76,7 @@ OpenChatOps bots and callback programs communicate schema-based, strongly-typed 
 While gRPC provides the RPC protocol, it leans on Google's [Protocol Buffers](https://developers.google.com/protocol-buffers/) to define the data to be transmitted over the RPC protocol and the interfaces of the services that expose RPC API endpoints.
 Protocol Buffers uses a programming language-agnostic interface description language (IDL) for schema definition.
 gRPC's RPC system is built on top of [HTTP/2](https://http2.github.io/), which uses a binary format for efficient network transfer.
+Each callback program has a unique secret key that is known only to itself and the chat bot, to ensure other entities that can reach the chat bot over the network cannot impersonate the callback program.
 
 In short:
 
@@ -68,6 +85,8 @@ In short:
 * This generated code includes all of the data types, scaffolding for implementing the main RPC server's API, and client code to make requests to the API in a way that feels natural for that language and hides the details of the protocol.
 
 ## API
+
+Note: The API is in very early stages. It is incomplete and does not currently represent the full capabilities planned.
 
 The OpenChatOps API is expressed in the Protocol Buffers interface description language in the `proto` directory.
 All services, service methods, messages, and message fields are documented with inline comments.
