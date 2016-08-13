@@ -94,7 +94,7 @@ A higher level overview of the API will follow in this section.
 
 ## Reference implementation
 
-[Rustin](https://github.com/openchatops/rustin) is a prototype for OpenChatOps being developed as a reference implementation.
+The Rust crate [oco](https://github.com/openchatops/rust) is a prototype for OpenChatOps being developed as a reference implementation.
 
 ## Community
 
